@@ -1,32 +1,29 @@
 
 #include <iostream>
-#include <cstring>
 #include <fstream>
 
-#define VOWELS  "aeiou"
+constexpr char VOWELS[] = "aeiou";
 
 
 bool    is_vowels(char character) {
-    char    lower;
-
-    lower = tolower(character);
-    for (int i = 0; VOWELS[i] != 0; i++) {
+    auto    lower = std::tolower(character);
+    for (int i = 0; VOWELS[i] != 0; ++i) {
         if (lower == VOWELS[i])
             return true;
     }
     return false;
 }
 
-void    count_words(char character, int *vowels, int *consonants, int *others) {
+void    count_words(char character, int &vowels, int &consonants, int &others) {
     if (!isalpha(character))
-        (*others)++;
+        others++;
     else if (is_vowels(character))
-        (*vowels)++;
+        vowels++;
     else
-        (*consonants)++;
+        consonants++;
 }
 
-int     words_checker(std::istream &read_file, char const *stop) {
+int     words_checker(std::istream &read_file, const std::string &stop = {}) {
     std::string program_input;
     int         vowels;
     int         consonants;
@@ -36,9 +33,9 @@ int     words_checker(std::istream &read_file, char const *stop) {
     consonants = 0;
     others = 0;
     while (read_file >> program_input) {
-        if (stop && program_input == stop)
+        if (!stop.empty() && program_input == stop)
             break;
-        count_words(program_input[0], &vowels, &consonants, &others);
+        count_words(program_input[0], vowels, consonants, others);
     }
     if (read_file.bad()) {
         perror("Error on reading string");
@@ -50,15 +47,14 @@ int     words_checker(std::istream &read_file, char const *stop) {
     return 0;
 }
 
-int     read_from_file(char *file_name) {
-    std::ifstream   input_file;
+int     read_from_file(const std::string &file_name) {
+    std::ifstream   input_file(file_name);
 
-    input_file.open(file_name);
     if (!input_file) {
         perror("Error on reading file");
         return 1;
     }
-    words_checker(input_file, nullptr);
+    words_checker(input_file);
     input_file.close();
     return 0;
 }
