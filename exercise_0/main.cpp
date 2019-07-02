@@ -59,6 +59,7 @@ int     read_from_file(char *file_name) {
         return 1;
     }
     words_checker(input_file, nullptr);
+    input_file.close();
     return 0;
 }
 
