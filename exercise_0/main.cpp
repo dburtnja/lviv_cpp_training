@@ -23,7 +23,7 @@ void    count_words(char character, int &vowels, int &consonants, int &others) {
         consonants++;
 }
 
-int     words_checker(std::istream &read_file, const std::string &stop = {}) {
+int     check_words(std::istream &read_file, const std::string &stop = {}) {
     std::string program_input;
     int         vowels;
     int         consonants;
@@ -54,7 +54,7 @@ int     read_from_file(const std::string &file_name) {
         perror("Error on reading file");
         return 1;
     }
-    words_checker(input_file);
+    check_words(input_file);
     input_file.close();
     return 0;
 }
@@ -62,7 +62,7 @@ int     read_from_file(const std::string &file_name) {
 int     main(int argc, char **argv) {
     if (argc == 1) {
         std::cout << "Enter words (q to quit):" << std::endl;
-        return words_checker(std::cin, "q");
+        return check_words(std::cin, "q");
     }
     else if (argc == 2) {
         return read_from_file(argv[1]);
