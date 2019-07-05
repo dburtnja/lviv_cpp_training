@@ -1,32 +1,29 @@
 
 #include <iostream>
-#include <cstring>
 #include <fstream>
 
-#define VOWELS  "aeiou"
+constexpr char VOWELS[] = "aeiou";
 
 
 bool    is_vowels(char character) {
-    char    lower;
-
-    lower = tolower(character);
-    for (int i = 0; VOWELS[i] != 0; i++) {
+    auto    lower = std::tolower(character);
+    for (int i = 0; VOWELS[i] != 0; ++i) {
         if (lower == VOWELS[i])
             return true;
     }
     return false;
 }
 
-void    count_words(char character, int *vowels, int *consonants, int *others) {
+void    count_words(char character, int &vowels, int &consonants, int &others) {
     if (!isalpha(character))
-        (*others)++;
+        others++;
     else if (is_vowels(character))
-        (*vowels)++;
+        vowels++;
     else
-        (*consonants)++;
+        consonants++;
 }
 
-int     words_checker(std::istream &read_file, char const *stop) {
+int     check_words(std::istream &read_file, const std::string &stop = {}) {
     std::string program_input;
     int         vowels;
     int         consonants;
@@ -36,40 +33,39 @@ int     words_checker(std::istream &read_file, char const *stop) {
     consonants = 0;
     others = 0;
     while (read_file >> program_input) {
-        if (stop && program_input == stop)
+        if (!stop.empty() && program_input == stop)
             break;
-        count_words(program_input[0], &vowels, &consonants, &others);
+        count_words(program_input[0], vowels, consonants, others);
     }
     if (read_file.bad()) {
         perror("Error on reading string");
-        return 1;
+        return EXIT_FAILURE;
     }
     std::cout << vowels << " words beginning with vowels" << std::endl;
     std::cout << consonants << " words beginning with consonants" << std::endl;
     std::cout << others << " others" << std::endl;
-    return 0;
+    return EXIT_SUCCESS;
 }
 
-int     read_from_file(char *file_name) {
-    std::ifstream   input_file;
+int     read_from_file(const std::string &file_name) {
+    std::ifstream   input_file(file_name);
 
-    input_file.open(file_name);
     if (!input_file) {
         perror("Error on reading file");
-        return 1;
+        return EXIT_FAILURE;
     }
-    words_checker(input_file, nullptr);
-    return 0;
+    check_words(input_file);
+    return EXIT_SUCCESS;
 }
 
 int     main(int argc, char **argv) {
     if (argc == 1) {
         std::cout << "Enter words (q to quit):" << std::endl;
-        return words_checker(std::cin, "q");
+        return check_words(std::cin, "q");
     }
     else if (argc == 2) {
         return read_from_file(argv[1]);
     }
     std::cout << "Usage: " << argv[0] << " [FILE_NAME]" << std::endl;
-    return 0;
+    return EXIT_SUCCESS;
 }
