@@ -1,4 +1,5 @@
 #include <iostream>
+#include <sstream>
 #include "Graph.hpp"
 
 Graph read_from_file(const std::string &file_name) {

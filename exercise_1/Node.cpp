@@ -36,7 +36,7 @@ void Node::update_weight(int weight, Node *updater) {
     }
 }
 
-int Node::get_weight() {
+int Node::get_weight() const {
     return this->_weight_from_start;
 }
 
@@ -55,11 +55,11 @@ void    Node::update_neighbors_weight() {
     this->_visited = true;
 }
 
-Node    *Node::get_previous() {
+Node    *Node::get_previous() const {
     return this->_previous;
 }
 
-std::string Node::get_representation() {
+std::string Node::get_representation() const {
     std::stringstream  stream;
     stream << this->_node_name;
     stream << " (";
