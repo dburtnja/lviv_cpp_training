@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+#include <sstream>
 #include "Graph.hpp"
 
 Graph::Graph(std::istream &istream) {
@@ -27,22 +28,22 @@ Graph::Graph(std::istream &istream) {
     }
     if (this->_map_nodes.empty())
         throw std::invalid_argument("No path description in file");
-    for (const auto &value : this->_map_nodes) {
-        std:: cout << value.second->get_representation() << std::endl;
-        this->_list_nodes.push_back(value.second);
+    for (auto &value : this->_map_nodes) {
+        std:: cout << value.second.get_representation() << std::endl;
+        this->_list_nodes.push_back(&(value.second));
     }
     std::cout << "Graph is saved." << std::endl;
 }
 
 Node *Graph::_create_or_get_node(const std::string &node_name) {
-    Node    *node;
     auto    iter = this->_map_nodes.find(node_name);
 
     if (iter != this->_map_nodes.end())
-        return iter->second;
-    node = new Node(node_name);
-    this->_map_nodes[node_name] = node;
-    return node;
+        return &iter->second;
+//    node = new Node(node_name);
+//    this->_map_nodes[node_name] = Node(node_name);
+    this->_map_nodes.insert({node_name, Node(node_name)});
+    return &this->_map_nodes.find(node_name)->second;
 }
 
 void Graph::_add_nodes(const std::string &name_first, const std::string &name_second, int weight) {
@@ -62,18 +63,13 @@ std::ostream &operator<<(std::ostream &stream, const Graph &graph) {
     return stream;
 }
 
-Graph::~Graph() {
-    for (auto node : this->_list_nodes)
-        delete node;
-}
-
-Node    *Graph::_get_node(const std::string &node_name) {
-    std::map<std::string, Node *>::iterator iterator;
+Node    *Graph::_find_node(const std::string &node_name) {
+    std::map<std::string, Node>::iterator iterator;
 
     iterator = this->_map_nodes.find(node_name);
     if (iterator == this->_map_nodes.end())
         return nullptr;
-    return iterator->second;
+    return &iterator->second;
 }
 
 void Graph::_print_path(Node *start_point, Node *end_point) {
@@ -95,8 +91,8 @@ void Graph::_print_path(Node *start_point, Node *end_point) {
 }
 
 void    Graph::calculate_path(const std::string &start_point, const std::string &end_point) {
-    Node    *start_node = this->_get_node(start_point);
-    Node    *end_node = this->_get_node(end_point);
+    Node    *start_node = this->_find_node(start_point);
+    Node    *end_node = this->_find_node(end_point);
 
     if (nullptr == start_node)
         throw std::invalid_argument("No point name: " + start_point);

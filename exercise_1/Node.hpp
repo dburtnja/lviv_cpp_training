@@ -18,15 +18,15 @@ private:
 
 public:
     Node(std::string node_name);
-    Node    *get_previous();
+    Node    *get_previous() const ;
     void    mark_as_start();
     void    update_weight(int weight, Node *updater);
     void    update_neighbors_weight();
     void    add_connection(Node *neighbor, int waight);
-    int     get_weight();
+    int     get_weight() const ;
     void    reset();
 
-    std::string get_representation();
+    std::string get_representation() const;
     friend std::ostream &operator<<(std::ostream &stream, const Node &node);
 };
 
