@@ -16,6 +16,8 @@ private:
 
 
 public:
+    static const std::string MARKER;
+
     Exam(std::istringstream &istringstream);
     int getId() const override;
     std::string getFormatted() const override ;

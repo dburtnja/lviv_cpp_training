@@ -6,6 +6,8 @@
 #include <sstream>
 #include "Teacher.hpp"
 
+const std::string Teacher::MARKER = "T";
+
 Teacher::Teacher(std::istringstream &istringstream) {
     std::string buf;
 

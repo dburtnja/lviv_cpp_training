@@ -6,6 +6,8 @@
 #include <sstream>
 #include "Exam.hpp"
 
+const std::string Exam::MARKER = "E";
+
 Exam::Exam(std::istringstream &istringstream) {
     std::string buf;
 

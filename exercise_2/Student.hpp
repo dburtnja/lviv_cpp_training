@@ -14,6 +14,8 @@ private:
 
 
 public:
+    static const std::string MARKER;
+
     Student(std::istringstream &istringstream);
     int getId() const override;
     std::string getName() const override;

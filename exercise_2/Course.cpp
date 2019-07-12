@@ -6,6 +6,8 @@
 #include <sstream>
 #include "Course.hpp"
 
+const std::string Course::MARKER = "C";
+
 int Course::getId() const {
     return this->_id;
 }

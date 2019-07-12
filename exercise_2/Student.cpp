@@ -6,6 +6,8 @@
 #include <sstream>
 #include "Student.hpp"
 
+const std::string Student::MARKER = "S";
+
 Student::Student(std::istringstream &istringstream) {
     std::string buf;
 

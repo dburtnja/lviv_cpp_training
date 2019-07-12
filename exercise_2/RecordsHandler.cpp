@@ -8,13 +8,6 @@
 #include "RecordsHandler.hpp"
 
 
-RecordsHandler::RecordsHandler() {
-    this->_add_record_type<Course>("C");
-    this->_add_record_type<Student>("S");
-    this->_add_record_type<Teacher>("T");
-    this->_add_record_type<Exam>("E");
-}
-
 int RecordsHandler::read_records(const std::string &file_name) {
     std::ifstream   file(file_name);
     std::string     buffer;
@@ -38,17 +31,17 @@ void RecordsHandler::_add_record(const std::string &record) {
 
     if (!std::getline(istringstream_record, record_type_marker, ','))
         exit(EXIT_FAILURE);
-    if (auto constructor = this->_get_record_constructor(record_type_marker)) {
-        auto object = constructor(istringstream_record);
+    if (auto object_creator = this->_get_record_creator(record_type_marker)) {
+        auto object = object_creator(istringstream_record);
         this->_store_in_record_container(record_type_marker, object);
     }
 }
 
-RecordsHandler::_constructor_type RecordsHandler::_get_record_constructor(const std::string &record_marker) const {
-    auto constructor_iterator = CONSTRUCTORS.find(record_marker);
-    if (constructor_iterator == CONSTRUCTORS.end())
+RecordsHandler::_object_creator_type RecordsHandler::_get_record_creator(const std::string &record_marker) const {
+    auto object_creator_iterator = _OBJECT_CREATORS.find(record_marker);
+    if (object_creator_iterator == _OBJECT_CREATORS.end())
         return nullptr;
-    return constructor_iterator->second;
+    return object_creator_iterator->second;
 }
 
 std::map<int, std::shared_ptr<IRecord>> &RecordsHandler::_get_records(const std::string &records_marker) {
