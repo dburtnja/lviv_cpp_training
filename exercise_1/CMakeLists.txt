@@ -3,6 +3,6 @@ project(exercise_1)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(exercise_1 main.cpp Graph.cpp Graph.hpp Node.cpp Node.hpp)
+add_executable(exercise_1 main.cpp Graph.hpp Node.cpp Node.hpp)
 
 target_compile_options(exercise_1 PRIVATE -Wall -Wextra -Werror)

@@ -1,26 +1,27 @@
 #include <iostream>
 #include <sstream>
 #include "Graph.hpp"
+#include "Node.hpp"
 
-Graph read_from_file(const std::string &file_name) {
+Graph<Node> read_from_file(const std::string &file_name) {
     std::ifstream   input_file(file_name);
     if (!input_file) {
         perror("Error on reading file");
         exit(EXIT_FAILURE);
     }
-    return Graph(input_file);
+    return Graph<Node>(input_file);
 }
 
-Graph create_graph(int argc, char **argv) {
+Graph<Node> create_graph(int argc, char **argv) {
     if (argc == 1) {
-        return Graph(std::cin);
+        return Graph<Node>(std::cin);
     } else {
         std::cout << "Reading from file: " << argv[1] << std::endl;
         return read_from_file(argv[1]);
     }
 }
 
-void    finding_paths(Graph &graph) {
+void    finding_paths(Graph<Node> &graph) {
     std::string buffer;
     std::string start_point_name;
     std::string end_point_name;
@@ -55,7 +56,7 @@ int main(int argc, char **argv) {
         return EXIT_FAILURE;
     }
     try {
-        Graph graph = create_graph(argc, argv);
+        Graph<Node> graph = create_graph(argc, argv);
         finding_paths(graph);
     } catch (std::exception &e) {
         std::cout << e.what() << std::endl;
