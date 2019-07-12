@@ -16,10 +16,10 @@ int main() {
 
     if (records_handler.read_records("../records.txt") == EXIT_FAILURE)
         return EXIT_FAILURE;
-    records_handler.write_records("../C_records.txt", "C");
-    records_handler.write_records("../S_records.txt", "S");
-    records_handler.write_records("../T_records.txt", "T");
-    records_handler.write_records("../E_records.txt", "E");
+    records_handler.write_records("../C_records.txt", Course::MARKER);
+    records_handler.write_records("../S_records.txt", Student::MARKER);
+    records_handler.write_records("../T_records.txt", Teacher::MARKER);
+    records_handler.write_records("../E_records.txt", Exam::MARKER);
 
     return EXIT_SUCCESS;
 }
