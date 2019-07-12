@@ -26,7 +26,7 @@ private:
     template <typename RecordClass>
     void _add_record_type(const std::string &record_marker) {
         CONSTRUCTORS[record_marker] = &(RecordsHandler::_constructor<RecordClass>);
-        CONTAINERS[record_marker] = std::map<int, std::shared_ptr<IRecord>>{};
+        CONTAINERS[record_marker] = {};
     }
 
     _constructor_type _get_record_constructor(const std::string &record_marker) const;
