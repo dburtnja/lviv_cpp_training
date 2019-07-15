@@ -13,22 +13,22 @@ Student::Student(std::istringstream &istringstream) {
 
     if (!std::getline(istringstream, buf, ','))
         throw std::invalid_argument("Wrong argument: " + istringstream.str());
-    this->_id = std::stoi(buf);
-    if (!std::getline(istringstream, this->_name, ','))
+    _id = std::stoi(buf);
+    if (!std::getline(istringstream, _name, ','))
         throw std::invalid_argument("Wrong argument: " + istringstream.str());
 }
 
 int Student::getId() const {
-    return this->_id;
+    return _id;
 }
 
 std::string Student::getFormatted() const {
     std::ostringstream  ostringstream;
 
-    ostringstream << this->_id << "," << this->_name;
+    ostringstream << _id << "," << _name;
     return ostringstream.str();
 }
 
 std::string Student::getName() const {
-    return this->_name;
+    return _name;
 }

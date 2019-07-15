@@ -13,29 +13,29 @@ Exam::Exam(std::istringstream &istringstream) {
 
     if (!std::getline(istringstream, buf, ','))
         throw std::invalid_argument("Wrong argument: " + istringstream.str());
-    this->_id = std::stoi(buf);
+    _id = std::stoi(buf);
     if (!std::getline(istringstream, buf, ','))
         throw std::invalid_argument("Wrong argument: " + istringstream.str());
-    this->_course_id = std::stoi(buf);
+    _course_id = std::stoi(buf);
     if (!std::getline(istringstream, buf, ','))
         throw std::invalid_argument("Wrong argument: " + istringstream.str());
-    this->_student_id = std::stoi(buf);
+    _student_id = std::stoi(buf);
     if (!std::getline(istringstream, buf, ','))
         throw std::invalid_argument("Wrong argument: " + istringstream.str());
-    this->_result = std::stoi(buf);
+    _result = std::stoi(buf);
 }
 
 int Exam::getId() const {
-    return this->_id;
+    return _id;
 }
 
 std::string Exam::getFormatted() const {
     std::ostringstream  ostringstream;
 
     ostringstream
-    << this->_id << ','
-    << this->_course_id<< ','
-    << this->_student_id << ','
-    << this->_result;
+    << _id << ','
+    << _course_id<< ','
+    << _student_id << ','
+    << _result;
     return ostringstream.str();
 }
