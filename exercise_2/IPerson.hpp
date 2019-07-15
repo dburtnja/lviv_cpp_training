@@ -6,9 +6,8 @@
 
 
 #include <string>
-#include "IRecord.hpp"
 
-class IPerson : public IRecord {
+class IPerson {
 public:
     virtual std::string getName() const = 0;
     virtual ~IPerson() = default;

@@ -6,8 +6,9 @@
 
 
 #include "IPerson.hpp"
+#include "IRecord.hpp"
 
-class Teacher : public IPerson {
+class Teacher : public IPerson, public IRecord {
 private:
     int _id;
     std::string _name;
