@@ -20,10 +20,14 @@ void RecordsHandler::read_records(const std::string &file_name) {
         perror("Can't open file");
         throw std::invalid_argument("Bad file_name.");
     }
-    while (file) {
+    for (int i = 1; file; ++i) {
         std::getline(file, buffer);
-        if (!buffer.empty())
-            _add_record(buffer);
+        try {
+            if (!buffer.empty())
+                _add_record(buffer);
+        } catch (std::exception &e) {
+            throw std::invalid_argument("Invalid file, line: " + std::to_string(i) + ". '" + buffer + "' " + e.what());
+        }
     }
 }
 
