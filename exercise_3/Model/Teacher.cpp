@@ -6,9 +6,6 @@
 #include <sstream>
 #include "Teacher.hpp"
 
-const std::string Teacher::MARKER = "T";
-const std::string Teacher::RECORD_NAME = "Teacher";
-
 Teacher::Teacher(std::istringstream &istringstream) {
     std::string buf;
 
@@ -34,7 +31,7 @@ std::string Teacher::getFormatted() const {
     return ostringstream.str();
 }
 
-std::list<std::pair<std::string, std::string>> Teacher::_get_print_parameters() const {
+std::vector<Parameter> Teacher::_get_print_parameters() const {
     return {
         {"ID", std::to_string(_id)},
         {"Name", _name}

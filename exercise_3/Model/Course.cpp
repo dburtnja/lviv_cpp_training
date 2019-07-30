@@ -4,10 +4,8 @@
 
 #include <iostream>
 #include <sstream>
+#include <vector>
 #include "Course.hpp"
-
-const std::string Course::MARKER = "C";
-const std::string Course::RECORD_NAME = "Course";
 
 int Course::getId() const {
     return _id;
@@ -33,7 +31,7 @@ Course::Course(std::istringstream &istringstream) {
     _teacher_id = std::stoi(buf);
 }
 
-std::list<std::pair<std::string, std::string>> Course::_get_print_parameters() const {
+std::vector<Parameter> Course::_get_print_parameters() const {
     return {
         {"ID", std::to_string(_id)},
         {"Name", _name},

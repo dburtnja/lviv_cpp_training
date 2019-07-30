@@ -6,10 +6,6 @@
 #include <sstream>
 #include "Student.hpp"
 
-const std::string Student::MARKER = "S";
-const std::string Student::RECORD_NAME = "Student";
-
-
 Student::Student(std::istringstream &istringstream) {
     std::string buf;
 
@@ -35,7 +31,7 @@ std::string Student::getName() const {
     return _name;
 }
 
-std::list<std::pair<std::string, std::string>> Student::_get_print_parameters() const {
+std::vector<Parameter> Student::_get_print_parameters() const {
     return {
         {"ID", std::to_string(_id)},
         {"Name", _name}

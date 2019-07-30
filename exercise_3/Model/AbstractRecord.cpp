@@ -4,11 +4,11 @@
 
 #include <sstream>
 #include <iostream>
-#include "ARecord.hpp"
+#include "AbstractRecord.hpp"
 
-std::string ARecord::getPrettyPrinted() const {
+std::string AbstractRecord::getPrettyPrinted() const {
     std::ostringstream  buffer;
-    auto print_parameters = _get_print_parameters();
+    const auto print_parameters = _get_print_parameters();
     auto &last_key = print_parameters.back().first;
 
     for (auto &[key, value] : print_parameters) {

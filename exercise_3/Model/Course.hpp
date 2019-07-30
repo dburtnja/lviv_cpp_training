@@ -5,20 +5,17 @@
 #pragma once
 
 
-#include "ARecord.hpp"
+#include "AbstractRecord.hpp"
 
-class Course : public ARecord {
+class Course : public AbstractRecord {
 private:
     int _id;
     int _teacher_id;
     std::string _name;
 
-    std::list<std::pair<std::string, std::string>> _get_print_parameters() const override;
+    std::vector<Parameter> _get_print_parameters() const override;
 
 public:
-    static const std::string MARKER;
-    static const std::string RECORD_NAME;
-
     Course(std::istringstream &istringstream);
     int getId() const override;
     std::string getFormatted() const override ;

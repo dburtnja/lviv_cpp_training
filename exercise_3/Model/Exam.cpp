@@ -6,9 +6,6 @@
 #include <sstream>
 #include "Exam.hpp"
 
-const std::string Exam::MARKER = "E";
-const std::string Exam::RECORD_NAME = "Exam";
-
 Exam::Exam(std::istringstream &istringstream) {
     std::string buf;
 
@@ -41,7 +38,7 @@ std::string Exam::getFormatted() const {
     return ostringstream.str();
 }
 
-std::list<std::pair<std::string, std::string>> Exam::_get_print_parameters() const {
+std::vector<Parameter> Exam::_get_print_parameters() const {
     return {
         {"ID", std::to_string(_id)},
         {"CourseID", std::to_string(_course_id)},

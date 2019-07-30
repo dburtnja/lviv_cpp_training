@@ -7,6 +7,7 @@
 #include <iostream>
 
 const std::string ShowCommand::COMMAND_NAME = "SHOW";
+const std::string ShowCommand::DESCRIPTION = "SHOW [table_name]: If table_name is present - print table or print all tables.";
 
 namespace {
     auto print_records = [] (const std::string &table_name, const std::map<int, std::shared_ptr<IRecord>>& records) {
@@ -19,14 +20,14 @@ namespace {
     };
 }
 
-ShowCommand::ShowCommand(std::istringstream &command, RecordsHandler &recordsHandler) :
-        _command(command), _recordsHandler(recordsHandler) {
+ShowCommand::ShowCommand(RecordsHandler &records_handler) : AbstractCommand(records_handler) {
 }
+
 
 void ShowCommand::execute() {
     std::string input_table_name;
 
-    _command >> input_table_name;
+    _arguments_stream >> input_table_name;
     if (input_table_name.empty() or input_table_name == "*") {
         for (const auto &table_name : _recordsHandler.get_tables()) {
             auto records = _recordsHandler.get_records(table_name);
@@ -37,4 +38,12 @@ void ShowCommand::execute() {
         print_records(input_table_name, records);
     }
 
+}
+
+const std::string & ShowCommand::get_info() const {
+    return DESCRIPTION;
+}
+
+const std::string &ShowCommand::get_name() const {
+    return COMMAND_NAME;
 }
