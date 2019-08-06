@@ -6,6 +6,9 @@
 #include <sstream>
 #include "Teacher.hpp"
 
+const std::string Teacher::ID = "ID";
+const std::string Teacher::NAME = "Name";
+
 Teacher::Teacher(std::istringstream &istringstream) {
     std::string buf;
 
@@ -33,7 +36,16 @@ std::string Teacher::getFormatted() const {
 
 std::vector<Parameter> Teacher::_get_print_parameters() const {
     return {
-        {"ID", std::to_string(_id)},
-        {"Name", _name}
+        {ID, std::to_string(_id)},
+        {NAME, _name}
     };
+}
+
+bool Teacher::match(const std::vector<Condition> &conditions) const {
+    return match_parameters(conditions, {{NAME, _name}}) and match_parameters(conditions, {{ID, _id}});
+}
+
+void Teacher::update(const std::string &key, const std::string &value) {
+    if (NAME == key)
+        _name = value;
 }

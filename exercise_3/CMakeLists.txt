@@ -15,7 +15,7 @@ add_executable(exercise_3 main.cpp
         Commands/ShowCommand.cpp Commands/ShowCommand.hpp
         Model/AbstractRecord.cpp Model/AbstractRecord.hpp
         Commands/CommandsHandler.cpp Commands/CommandsHandler.hpp
-        Model/Table.cpp Model/Table.hpp Commands/AbstractCommand.cpp Commands/AbstractCommand.hpp Commands/HelpCommand.cpp Commands/HelpCommand.hpp)
+        Model/Table.cpp Model/Table.hpp Commands/AbstractCommand.cpp Commands/AbstractCommand.hpp Commands/HelpCommand.cpp Commands/HelpCommand.hpp Commands/UpdateCommand.cpp Commands/UpdateCommand.hpp Commands/DeleteCommand.cpp Commands/DeleteCommand.hpp)
 
 target_include_directories(exercise_3 PUBLIC Model Commands)
 

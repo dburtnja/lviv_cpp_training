@@ -6,12 +6,15 @@
 #include <sstream>
 #include "Student.hpp"
 
+const std::string Student::ID = "ID";
+const std::string Student::NAME = "Name";
+
 Student::Student(std::istringstream &istringstream) {
     std::string buf;
 
     if (!std::getline(istringstream, buf, ','))
         throw std::invalid_argument("Wrong argument: " + istringstream.str());
-    _id = std::stoi(buf);
+    _id = str_to_int(buf);
     if (!std::getline(istringstream, _name, ','))
         throw std::invalid_argument("Wrong argument: " + istringstream.str());
 }
@@ -33,7 +36,16 @@ std::string Student::getName() const {
 
 std::vector<Parameter> Student::_get_print_parameters() const {
     return {
-        {"ID", std::to_string(_id)},
-        {"Name", _name}
+        {ID, std::to_string(_id)},
+        {NAME, _name}
     };
+}
+
+bool Student::match(const std::vector<Condition> &conditions) const {
+    return match_parameters(conditions, {{NAME, _name}}) and match_parameters(conditions, {{ID, _id}});
+}
+
+void Student::update(const std::string &key, const std::string &value) {
+        if (NAME == key)
+            _name = value;
 }

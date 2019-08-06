@@ -7,6 +7,10 @@
 #include <vector>
 #include "Course.hpp"
 
+const std::string Course::ID = "ID";
+const std::string Course::NAME = "Name";
+const std::string Course::TEACHER_ID = "TeacherID";
+
 int Course::getId() const {
     return _id;
 }
@@ -33,8 +37,20 @@ Course::Course(std::istringstream &istringstream) {
 
 std::vector<Parameter> Course::_get_print_parameters() const {
     return {
-        {"ID", std::to_string(_id)},
-        {"Name", _name},
-        {"TeacherID", std::to_string(_teacher_id)}
+        {ID, std::to_string(_id)},
+        {NAME, _name},
+        {TEACHER_ID, std::to_string(_teacher_id)}
     };
+}
+
+bool Course::match(const std::vector<Condition> &conditions) const {
+    return match_parameters(conditions, {{ID, _id,}, {TEACHER_ID, _teacher_id}}) &&
+    match_parameters(conditions, {{NAME, _name}});
+}
+
+void Course::update(const std::string &key, const std::string &value) {
+    if (key == NAME)
+        _name = value;
+    if (key == TEACHER_ID)
+        _teacher_id = str_to_int(value);
 }

@@ -18,3 +18,36 @@ std::string AbstractRecord::getPrettyPrinted() const {
     }
     return buffer.str();
 }
+
+int AbstractRecord::str_to_int(const std::string &input) {
+    try {
+        return std::stoi(input);
+    } catch (std::exception &e) {
+        throw std::invalid_argument("Could not convert '" + input + "' to integer.");
+    }
+}
+
+bool AbstractRecord::match_parameters(const std::vector<Condition> &conditions,
+                                      std::map<std::string, std::string> parameters) const {
+    for (const auto & condition : conditions) {
+        auto parameters_iterator = parameters.find(condition.parameter_name);
+        if (parameters_iterator != parameters.end()) {
+            if (!compare(parameters_iterator->second, condition.compare_sign, condition.value))
+                return false;
+        }
+    }
+    return true;
+}
+
+bool AbstractRecord::match_parameters(const std::vector<Condition> &conditions,
+                                      std::map<std::string, int> parameters) const {
+    for (const auto & condition : conditions) {
+        auto parameters_iterator = parameters.find(condition.parameter_name);
+        if (parameters_iterator != parameters.end()) {
+            if (!compare(parameters_iterator->second, condition.compare_sign, std::stoi(condition.value))) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
