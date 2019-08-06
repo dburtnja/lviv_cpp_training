@@ -61,3 +61,14 @@ std::size_t Table::size() const {
     return _records.size();
 }
 
+std::vector<int> Table::clear_records(const std::vector<int> &ids) {
+    std::vector<int> result;
+
+    result.reserve(ids.size());
+    for (auto id : ids) {
+        if (!_records.erase(id))
+            result.push_back(id);
+    }
+    result.shrink_to_fit();
+    return result;
+}

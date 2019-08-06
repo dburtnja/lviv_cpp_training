@@ -108,3 +108,14 @@ void RecordsHandler::dump_records(std::ostream &ostream) {
         dump_records(ostream, table_iterator.second.get_uppercase_name());
     }
 }
+
+void RecordsHandler::cleare_records(const std::string &table_name, const std::vector<int> &ids) {
+    auto table_name_uppercase = str_toupper(table_name);
+
+    for (auto &table_iterator : _tables)
+        if (table_name_uppercase == table_iterator.second.get_uppercase_name()) {
+            table_iterator.second.clear_records(ids);
+            return;
+        }
+    throw std::invalid_argument("Table with table name '" + table_name + "' doesn't exist.");
+}

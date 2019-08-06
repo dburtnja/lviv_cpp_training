@@ -7,6 +7,7 @@
 
 #include <map>
 #include <list>
+#include <vector>
 #include <memory>
 #include <functional>
 #include "IRecord.hpp"
@@ -30,5 +31,6 @@ public:
     const std::map<int, std::shared_ptr<IRecord>> &get_records(const std::string &table_name) const;
     const Table &get_table(const std::string &table_name) const;
     const Table &get_table_by_marker(const std::string &table_marker) const;
+    void cleare_records(const std::string &table_name, const std::vector<int> &ids);
     std::vector<std::string> get_tables() const;
 };

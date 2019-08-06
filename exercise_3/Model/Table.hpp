@@ -14,7 +14,6 @@ using create_record_function_t = std::function<std::shared_ptr<IRecord>(std::ist
 
 class Table {
 public:
-//    Table() = default;
     Table(const std::string &table_name, const create_record_function_t &create_record_function);
     Table(const std::string &table_name, const std::string &table_marker,
             const create_record_function_t &create_record_function);
@@ -27,6 +26,7 @@ public:
 
     int add_record(int record_id, std::shared_ptr<IRecord> record);
     int add_record(std::istringstream &istringstream);
+    std::vector<int> clear_records(const std::vector<int> &ids);
 
 private:
     const std::string _table_name;
@@ -36,6 +36,3 @@ private:
 
     std::map<int, std::shared_ptr<IRecord>> _records;
 };
-
-
-

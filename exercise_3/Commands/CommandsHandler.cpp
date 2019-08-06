@@ -7,6 +7,8 @@
 #include "CommandsHandler.hpp"
 #include "ShowCommand.hpp"
 #include "HelpCommand.hpp"
+#include "UpdateCommand.hpp"
+#include "DeleteCommand.hpp"
 
 const std::string EXIT = "EXIT";
 const std::string HELP = "HELP";
@@ -14,6 +16,8 @@ const std::string HELP = "HELP";
 CommandsHandler::CommandsHandler(RecordsHandler &records_handler) {
     _commands = {
             std::make_shared<ShowCommand>(records_handler),
+            std::make_shared<UpdateCommand>(records_handler),
+            std::make_shared<DeleteCommand>(records_handler)
     };
 }
 
@@ -35,6 +39,8 @@ void CommandsHandler::read_input(std::istream &istream) {
     while (istream) {
         try {
             std::getline(istream, command_line);
+            if (command_line.empty())
+                continue ;
             if (istream.bad())
                 throw std::invalid_argument("Bad input: '" + command_line + "'.");
             if (EXIT == command_line)
